@@ -1,0 +1,30 @@
+/* Header.module.css */
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1rem 2rem;
+  color: var(--color-text-primary);
+  font-size: 1rem;
+  font-weight: 500;
+}
+
+.email {
+  font-size: 1rem;
+}
+
+.logoutButton {
+  background-color: #ff4d4f;
+  color: white;
+  font-size: 0.9rem;
+  font-weight: bold;
+  padding: 0.6rem 1rem;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.2s ease-in-out;
+}
+
+.logoutButton:hover {
+  background-color: #d9363e;
+}

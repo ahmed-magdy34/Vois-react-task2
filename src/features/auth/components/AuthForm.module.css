@@ -1,0 +1,72 @@
+/* Container styling for the form */
+.form {
+  max-width: 400px;
+  margin: 2rem auto; /* Centers the form horizontally */
+  padding: 2rem;
+  background-color: var(--color-content, #ffffff);
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Header (title) styling */
+.form h1 {
+  text-align: center;
+  margin-bottom: 1.5rem;
+  color: var(--color-text-primary, #333333);
+}
+
+/* Form group: each div wrapping a label and input */
+.form div {
+  margin-bottom: 1rem;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Label styling */
+.form label {
+  margin-bottom: 0.5rem;
+  font-weight: 500;
+  color: var(--color-text-secondary, #757575);
+}
+
+/* Input styling for text and password fields */
+.form input[type="text"],
+.form input[type="password"] {
+  padding: 0.75rem;
+  font-size: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  transition: border-color 0.2s;
+}
+
+/* Input focus styling */
+.form input[type="text"]:focus,
+.form input[type="password"]:focus {
+  border-color: var(--color-primary, #2979ff);
+  outline: none;
+}
+
+/* Submit button styling */
+.form button {
+  width: 100%;
+  padding: 0.75rem;
+  background-color: var(--color-primary, #2979ff);
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+/* Hover state for the button */
+.form button:hover {
+  background-color: var(--color-secondary, #00bfa5);
+}
+.error {
+  color: #e63946; /* Use a red shade for errors */
+  font-size: 0.875rem; /* Slightly smaller font size */
+  margin-top: 0.25rem; /* Space above the error message */
+  font-weight: 500;
+}

@@ -1,6 +1,7 @@
 // src/services/apiPosts.js
-import { BASE_URL } from "../firebase";
+import { BASE_URL, db } from "../firebase";
 import { v4 as uuidv4 } from "uuid";
+import { doc, updateDoc } from "firebase/firestore";
 
 export async function getPostsAPI() {
   const response = await fetch(BASE_URL, {
@@ -83,4 +84,20 @@ export async function deletePostAPI(path, token) {
 
   alert("Post deleted successfully");
   return response.ok;
+}
+
+// apiPosts.js
+
+export async function updatePostSDK(documentId, updatedData) {
+  try {
+    // Create a reference to the document in "posts" collection
+    const postRef = doc(db, "posts", documentId);
+    // Update only the fields provided in updatedData
+    await updateDoc(postRef, updatedData);
+    console.log("Post updated successfully!");
+    return true;
+  } catch (error) {
+    console.error("Error updating post:", error.message);
+    return false;
+  }
 }

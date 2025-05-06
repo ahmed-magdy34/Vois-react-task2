@@ -22,7 +22,7 @@ const AuthForm = ({ mode }) => {
   } else {
     authFn = firebaseLogin;
   }
-  const { mutate, data, isLoading, isError } = useMutation({
+  const { mutate, data, isLoading, error } = useMutation({
     mutationFn: ({ email, password }) => authFn(email, password),
     onSuccess: (returnedData) => {
       localStorage.setItem("token", returnedData.idToken);
@@ -36,6 +36,7 @@ const AuthForm = ({ mode }) => {
       setBackendErr(err.message);
     },
   });
+  console.log(error);
   const onSubmitHandler = (e) => {
     e.preventDefault();
 

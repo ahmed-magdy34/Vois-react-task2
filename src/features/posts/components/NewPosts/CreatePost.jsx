@@ -52,6 +52,7 @@ const CreatePost = () => {
           type="text"
           id="title"
           name="title"
+          maxLength="10"
           value={titleInput}
           onChange={(e) => setTitleInput(e.target.value)}
         />
@@ -63,6 +64,7 @@ const CreatePost = () => {
           type="text"
           id="content"
           name="content"
+          maxLength="50"
           value={contentInput}
           onChange={(e) => setContentInput(e.target.value)}
         />

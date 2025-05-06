@@ -1,8 +1,7 @@
-/* PostList.module.css */
 .ulGrid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-  gap: 1rem; /* Adjust the spacing between items as needed */
+  gap: 1rem;
   padding: 0;
   margin: 0;
   list-style: none;

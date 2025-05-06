@@ -1,18 +1,13 @@
-/* MainNav.module.css */
-
-/* Remove default list styles and spacing */
 .NavList {
   list-style: none;
   margin: 0;
   padding: 0;
 }
 
-/* Space out each list item */
 .NavList li {
   margin-bottom: 1rem;
 }
 
-/* Base styling for NavLink components */
 .navlink {
   display: block;
   text-decoration: none;
@@ -25,13 +20,11 @@
   gap: 1rem;
 }
 
-/* Hover effect for nav links */
 .navlink:hover {
   background-color: var(--color-primary, #2979ff);
   color: #ffffff;
 }
 
-/* Active link style, if you set the active class via NavLink */
 .navlink.active {
   background-color: var(--color-primary, #2979ff);
   font-weight: bold;

@@ -9,7 +9,8 @@
   transition: transform 0.2s ease, box-shadow 0.2s ease;
   display: flex;
   flex-direction: column;
-  position: relative; /* This is needed for absolute positioning of the icon */
+  line-height: 12px;
+  position: relative;
 }
 
 .cardItem:hover {
@@ -27,6 +28,9 @@
   color: #555;
   font-size: 1rem;
   margin-bottom: 0.75rem;
+  overflow-wrap: break-word;
+  word-wrap: break-word;
+  white-space: pre-wrap;
 }
 
 .timestamp {
@@ -41,10 +45,9 @@
   text-align: right;
 }
 
-/* New delete icon styling */
 .deleteIcon {
   font-size: 1.5rem;
-  color: #ff4d4f; /* A red shade for delete */
+  color: #ff4d4f;
   cursor: pointer;
   position: absolute;
   top: 8px;
@@ -54,4 +57,17 @@
 
 .deleteIcon:hover {
   opacity: 0.8;
+}
+
+.editIcon {
+  font-size: 1.8rem;
+  color: #4caf50;
+  cursor: pointer;
+  transition: transform 0.2s ease, color 0.2s ease;
+  margin-left: 10px;
+}
+
+.editIcon:hover {
+  transform: scale(1.1);
+  color: #388e3c;
 }

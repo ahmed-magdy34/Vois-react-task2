@@ -29,6 +29,9 @@ const PostItem = ({ post }) => {
   });
   return (
     <li className={styles.cardItem}>
+      {post?.fields?.url?.stringValue && (
+        <img src={post?.fields?.url?.stringValue} alt="post-img" />
+      )}{" "}
       <h4 className={styles.title}>{post?.fields?.title?.stringValue}</h4>
       <p className={styles.content}> {post?.fields?.content?.stringValue}</p>
       <p className={styles.timestamp}>

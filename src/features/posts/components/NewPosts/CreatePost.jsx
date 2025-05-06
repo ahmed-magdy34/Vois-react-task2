@@ -8,6 +8,7 @@ import { useNavigate } from "react-router-dom";
 const CreatePost = () => {
   const [titleInput, setTitleInput] = useState("");
   const [contentInput, setContentInput] = useState("");
+  const [imageUrl, setImageUrl] = useState("");
   const [titleErr, setTitleErr] = useState(false);
   const [contentErr, setContentErr] = useState(false);
   const token = useSelector((state) => state.auth.token);
@@ -36,6 +37,7 @@ const CreatePost = () => {
       const newPost = {
         title: titleInput,
         content: contentInput,
+        url: imageUrl,
       };
       mutate(newPost);
       setTitleInput("");
@@ -69,6 +71,16 @@ const CreatePost = () => {
           onChange={(e) => setContentInput(e.target.value)}
         />
         {contentErr && <p className={styles.error}>Content is required</p>}
+      </div>
+      <div className={styles.formGroup}>
+        <label htmlFor="image">Image</label>
+        <input
+          type="url"
+          name="image"
+          id="image"
+          value={imageUrl}
+          onChange={(e) => setImageUrl(e.target.value)}
+        />
       </div>
       <button className={styles.submitButton}>Submit</button>
     </form>

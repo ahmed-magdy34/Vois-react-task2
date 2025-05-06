@@ -12,6 +12,7 @@ const PostList = () => {
     queryKey: ["posts"],
     queryFn: getPostsAPI,
   });
+  console.log(data);
   useEffect(() => {
     if (data && isSuccess) {
       dispatch(updatePosts(data));

@@ -33,6 +33,7 @@ export async function createPostAPI(post, token, email) {
       content: { stringValue: post.content },
       createdAt: { timestampValue: new Date().toISOString() },
       email: { stringValue: email },
+      url: { stringValue: post.url },
     },
   };
 

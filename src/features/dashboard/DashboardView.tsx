@@ -4,19 +4,19 @@ import { getPostsAPI } from "../../services/apiPosts";
 import { useSelector } from "react-redux";
 import PostItem from "../posts/components/ViewPosts/PostItem";
 import styles from "./DashboardView.module.css";
+import { RootState } from "../../store/store";
+import { Post } from "../posts/postTypes";
 
 const DashboardView = () => {
-  const [filteredData, setFilteredData] = useState([]);
-  const { data, isLoading, isError } = useQuery({
+  const [filteredData, setFilteredData] = useState<Post[]>([]);
+  const { data, isLoading, isError } = useQuery<Post[], Error>({
     queryKey: ["posts"],
     queryFn: getPostsAPI,
   });
-  const email = useSelector((state) => state.auth.email);
+  const email = useSelector((state: RootState) => state.auth.email);
   useEffect(() => {
     if (data) {
-      setFilteredData(
-        data?.filter((post) => post?.fields?.email?.stringValue === email)
-      );
+      setFilteredData(data?.filter((post: Post) => post?.email === email));
     }
   }, [data, email]);
   if (isLoading) {
@@ -32,7 +32,7 @@ const DashboardView = () => {
     <ul className={styles.ul}>
       <h4>No of your posts:{filteredData.length}</h4>
       {filteredData?.map((post) => (
-        <PostItem key={post?.fields.id.stringValue} post={post} />
+        <PostItem key={post?.id} post={post} />
       ))}
     </ul>
   );

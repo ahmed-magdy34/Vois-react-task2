@@ -4,15 +4,27 @@ import { firebaseLogin, firebaseSignUp } from "../../../services/apiAuth";
 import styles from "./AuthForm.module.css";
 import { Link, useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
-import { setAuth } from "../AuthSlice";
+import { setAuth } from "../authSlice";
 
-const AuthForm = ({ mode }) => {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [emailErr, setEmailErr] = useState(false);
-  const [passwordErr, setPasswordErr] = useState(false);
-  const [passwordLengthErr, setPasswordLengthErr] = useState(false);
-  const [backendErr, setBackendErr] = useState("");
+interface AuthFormProps {
+  mode: "login" | "signup";
+}
+interface AuthFormData {
+  email: string;
+  password: string;
+}
+interface AuthFormResponse {
+  idToken: string;
+  email: string;
+  refreshToken: string;
+}
+const AuthForm: React.FC<AuthFormProps> = ({ mode }) => {
+  const [email, setEmail] = useState<string>("");
+  const [password, setPassword] = useState<string>("");
+  const [emailErr, setEmailErr] = useState<boolean>(false);
+  const [passwordErr, setPasswordErr] = useState<boolean>(false);
+  const [passwordLengthErr, setPasswordLengthErr] = useState<boolean>(false);
+  const [backendErr, setBackendErr] = useState<string>("");
   const dispatch = useDispatch();
   const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
   const navigate = useNavigate();
@@ -22,9 +34,14 @@ const AuthForm = ({ mode }) => {
   } else {
     authFn = firebaseLogin;
   }
-  const { mutate, data, isLoading, error } = useMutation({
+  const { mutate, data, isLoading, error } = useMutation<
+    AuthFormResponse,
+    Error,
+    AuthFormData
+  >({
     mutationFn: ({ email, password }) => authFn(email, password),
     onSuccess: (returnedData) => {
+      console.log(returnedData);
       localStorage.setItem("token", returnedData.idToken);
       dispatch(
         setAuth({ token: returnedData.idToken, email: returnedData.email })
@@ -37,7 +54,7 @@ const AuthForm = ({ mode }) => {
     },
   });
   console.log(error);
-  const onSubmitHandler = (e) => {
+  const onSubmitHandler = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
     setEmailErr(false);

@@ -1,16 +1,23 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
-const initialState = {
-  token: localStorage.getItem("token") || null,
-  email: localStorage.getItem("email") || null,
+// Define the shape of the authentication state.
+interface AuthState {
+  token: string | null;
+  email: string | null;
+}
+
+// Type the initial state.
+const initialState: AuthState = {
+  token: localStorage.getItem("token"),
+  email: localStorage.getItem("email"),
 };
 
 const authSlice = createSlice({
   name: "auth",
   initialState,
   reducers: {
-    setAuth(state, action) {
-      // Expecting action.payload to include both token and email.
+    // Type the action payload using PayloadAction<T>
+    setAuth(state, action: PayloadAction<{ token: string; email: string }>) {
       const { token, email } = action.payload;
       state.token = token;
       state.email = email;

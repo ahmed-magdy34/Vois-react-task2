@@ -5,10 +5,11 @@ import { useDispatch } from "react-redux";
 import { updatePosts } from "../../postSlice";
 import styles from "./PostList.module.css";
 import PostItem from "./PostItem";
+import { Post } from "../../postTypes";
 
-const PostList = () => {
+const PostList: React.FC = () => {
   const dispatch = useDispatch();
-  const { data, isLoading, isSuccess, isError } = useQuery({
+  const { data, isLoading, isSuccess, isError } = useQuery<Post[], Error>({
     queryKey: ["posts"],
     queryFn: getPostsAPI,
   });
@@ -30,7 +31,7 @@ const PostList = () => {
   return (
     <ul className={styles.ulGrid}>
       {data?.map((post) => (
-        <PostItem key={post.fields.id.stringValue} post={post} />
+        <PostItem key={post.id} post={post} />
       ))}
     </ul>
   );

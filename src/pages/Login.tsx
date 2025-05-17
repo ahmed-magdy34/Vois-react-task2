@@ -1,12 +1,12 @@
 import React from "react";
 import AuthForm from "../features/auth/components/AuthForm";
 
-const SignUp = () => {
+const Login: React.FC = () => {
   return (
     <div>
-      <AuthForm mode="signup" />
+      <AuthForm mode="login" />
     </div>
   );
 };
 
-export default SignUp;
+export default Login;

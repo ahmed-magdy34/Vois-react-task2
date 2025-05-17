@@ -4,7 +4,7 @@ import { NavLink } from "react-router-dom";
 import { IoHomeOutline } from "react-icons/io5";
 import { BsSignpostSplit } from "react-icons/bs";
 import { TfiWrite } from "react-icons/tfi";
-const MainNav = () => {
+const MainNav: React.FC = () => {
   return (
     <nav>
       <ul className={styles.NavList}>

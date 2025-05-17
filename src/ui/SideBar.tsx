@@ -3,7 +3,7 @@ import styles from "./SideBar.module.css";
 import Logo from "./Logo";
 import MainNav from "./MainNav";
 
-const SideBar = () => {
+const SideBar: React.FC = () => {
   return (
     <aside className={styles.aside}>
       <Logo />

@@ -1,7 +1,13 @@
-// src/features/posts/postsSlice.js
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import type { Post } from "./postTypes"; // Adjust the path if needed
 
-const initialState = {
+// Define the shape of our posts state.
+interface PostsState {
+  posts: Post[];
+}
+
+// Initialize the state with type safety.
+const initialState: PostsState = {
   posts: [],
 };
 
@@ -10,19 +16,22 @@ const postsSlice = createSlice({
   initialState,
   reducers: {
     // Replace the posts array with new data.
-    updatePosts(state, action) {
+    updatePosts(state, action: PayloadAction<Post[]>) {
       state.posts = action.payload;
     },
     // Append a new post to the posts list.
-    addPost(state, action) {
+    addPost(state, action: PayloadAction<Post>) {
       state.posts.push(action.payload);
     },
     // Remove a post identified by its unique id.
-    removePost(state, action) {
+    removePost(state, action: PayloadAction<string>) {
       state.posts = state.posts.filter((post) => post.id !== action.payload);
     },
     // Update an existing post based on its id.
-    updatePost(state, action) {
+    updatePost(
+      state,
+      action: PayloadAction<{ id: string; data: Partial<Post> }>
+    ) {
       const { id, data } = action.payload;
       const index = state.posts.findIndex((post) => post.id === id);
       if (index !== -1) {

@@ -2,8 +2,9 @@
 import { BASE_URL, db } from "../firebase";
 import { v4 as uuidv4 } from "uuid";
 import { doc, updateDoc } from "firebase/firestore";
+import { FirestorePostResponse, Post } from "../features/posts/postTypes";
 
-export async function getPostsAPI() {
+export async function getPostsAPI(): Promise<Post[]> {
   const response = await fetch(BASE_URL, {
     method: "GET",
     headers: {
@@ -18,12 +19,24 @@ export async function getPostsAPI() {
 
   const data = await response.json();
 
-  return data.documents || [];
+  return data.documents.map((doc: FirestorePostResponse) => ({
+    id: doc.fields.id.stringValue,
+    title: doc.fields.title.stringValue,
+    content: doc.fields.content.stringValue,
+    createdAt: doc.fields.createdAt.timestampValue,
+    email: doc.fields.email.stringValue,
+    url: doc.fields.url?.stringValue,
+    name: doc.name,
+  }));
 }
 
-export async function createPostAPI(post, token, email) {
+export async function createPostAPI(
+  post: { title: string; content: string; url?: string },
+  token: string,
+  email: string
+): Promise<FirestorePostResponse> {
   // Generate a unique ID for the new post.
-  const id = uuidv4();
+  const id: string = uuidv4();
 
   // Construct the payload with an "id" field along with the other fields.
   const payload = {
@@ -60,7 +73,10 @@ export async function createPostAPI(post, token, email) {
 
   return response.json();
 }
-export async function deletePostAPI(path, token) {
+export async function deletePostAPI(
+  path: string,
+  token: string
+): Promise<boolean> {
   const headers = {
     "Content-Type": "application/json",
     Authorization: `Bearer ${token}`,
@@ -89,7 +105,10 @@ export async function deletePostAPI(path, token) {
 
 // apiPosts.js
 
-export async function updatePostSDK(documentId, updatedData) {
+export async function updatePostSDK(
+  documentId: string,
+  updatedData: Partial<Post>
+): Promise<boolean> {
   try {
     // Create a reference to the document in "posts" collection
     const postRef = doc(db, "posts", documentId);

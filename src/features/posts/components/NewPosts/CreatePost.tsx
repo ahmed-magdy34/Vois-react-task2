@@ -4,25 +4,35 @@ import { createPostAPI } from "../../../../services/apiPosts";
 import { useSelector } from "react-redux";
 import styles from "./CreatePost.module.css";
 import { useNavigate } from "react-router-dom";
+import { RootState } from "../../../../store/store";
 
+interface CreatePostData {
+  title: string;
+  content: string;
+  url: string;
+}
+type CreatePostResponse = any;
 const CreatePost = () => {
-  const [titleInput, setTitleInput] = useState("");
-  const [contentInput, setContentInput] = useState("");
-  const [imageUrl, setImageUrl] = useState("");
-  const [titleErr, setTitleErr] = useState(false);
-  const [contentErr, setContentErr] = useState(false);
-  const token = useSelector((state) => state.auth.token);
-  const email = useSelector((state) => state.auth.email);
+  const [titleInput, setTitleInput] = useState<string>("");
+  const [contentInput, setContentInput] = useState<string>("");
+  const [imageUrl, setImageUrl] = useState<string>("");
+
+  const [titleErr, setTitleErr] = useState<boolean>(false);
+  const [contentErr, setContentErr] = useState<boolean>(false);
+  const token = useSelector((state: RootState) => state.auth.token);
+  const email = useSelector((state: RootState) => state.auth.email);
   const queryClient = useQueryClient();
   const navigate = useNavigate();
   const { mutate } = useMutation({
-    mutationFn: (newPost) => createPostAPI(newPost, token, email),
+    mutationFn: (newPost: CreatePostData) =>
+      createPostAPI(newPost, token!, email!),
     onSuccess: (data) => {
       queryClient.invalidateQueries(["posts"]);
       navigate("/posts");
     },
   });
-  const onSubmitHandler = (e) => {
+
+  const onSubmitHandler = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     let hasErrors = false;
     if (!titleInput) {
@@ -54,7 +64,7 @@ const CreatePost = () => {
           type="text"
           id="title"
           name="title"
-          maxLength="10"
+          maxLength={10}
           value={titleInput}
           onChange={(e) => setTitleInput(e.target.value)}
         />
@@ -66,7 +76,7 @@ const CreatePost = () => {
           type="text"
           id="content"
           name="content"
-          maxLength="50"
+          maxLength={50}
           value={contentInput}
           onChange={(e) => setContentInput(e.target.value)}
         />

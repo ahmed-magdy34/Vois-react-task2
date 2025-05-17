@@ -3,15 +3,15 @@ import React from "react";
 import { Navigate, Route, Routes } from "react-router-dom";
 import Login from "./pages/Login";
 import SignUp from "./pages/SignUp";
-import Posts from "./pages/Posts";
 import Dashboard from "./pages/Dashboard";
 import NewPost from "./pages/NewPost";
+import Posts from "./pages/Posts";
 import PageNotFound from "./pages/PageNotFound";
 import AppLayout from "./ui/AppLayout";
 import ProtectedRoute from "./features/auth/ProtectedRoute";
 import ProtectedAuthRoute from "./features/auth/ProtectedAuthRoute";
 
-const App = () => {
+const App: React.FC = () => {
   return (
     <Routes>
       <Route

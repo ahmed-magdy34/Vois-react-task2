@@ -1,8 +1,7 @@
 import React from "react";
-import { useSelector } from "react-redux";
 import DashboardView from "../features/dashboard/DashboardView";
 
-const Dashboard = () => {
+const Dashboard: React.FC = () => {
   return (
     <>
       <h1>Dashboard</h1>

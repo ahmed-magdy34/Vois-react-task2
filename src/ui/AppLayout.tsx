@@ -4,7 +4,7 @@ import Header from "./Header";
 import SideBar from "./SideBar";
 import styles from "./AppLayout.module.css";
 
-const AppLayout = () => {
+const AppLayout: React.FC = () => {
   return (
     <div className={styles.applayout}>
       <Header />

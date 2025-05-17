@@ -12,14 +12,19 @@ import {
 } from "@tanstack/react-query";
 import { deletePostAPI } from "../../../../services/apiPosts";
 import EditPostModal from "../editpost/EditPostModal";
+import { Post } from "../../postTypes";
+import { RootState } from "../../../../store/store";
 
-const PostItem = ({ post }) => {
+interface PostItemProps {
+  post: Post;
+}
+const PostItem: React.FC<PostItemProps> = ({ post }) => {
   const [showModal, setShowModal] = useState(false);
-  const email = useSelector((state) => state.auth.email);
-  const token = useSelector((state) => state.auth.token);
+  const email = useSelector((state: RootState) => state.auth.email);
+  const token = useSelector((state: RootState) => state.auth.token);
   const queryClient = useQueryClient();
-  const { mutate } = useMutation({
-    mutationFn: (path) => deletePostAPI(path, token),
+  const { mutate } = useMutation<boolean, Error, string>({
+    mutationFn: (path: string) => deletePostAPI(path, token!),
     onSuccess: () => {
       queryClient.invalidateQueries(["posts"]);
     },
@@ -29,22 +34,18 @@ const PostItem = ({ post }) => {
   });
   return (
     <li className={styles.cardItem}>
-      {post?.fields?.url?.stringValue && (
-        <img src={post?.fields?.url?.stringValue} alt="post-img" />
-      )}{" "}
-      <h4 className={styles.title}>{post?.fields?.title?.stringValue}</h4>
-      <p className={styles.content}> {post?.fields?.content?.stringValue}</p>
-      <p className={styles.timestamp}>
-        {formatTimestamp(post?.fields?.createdAt?.timestampValue)}
-      </p>
-      <p className={styles.meta}>By:{post?.fields?.email?.stringValue}</p>
-      {email === post?.fields?.email?.stringValue && (
+      {post?.url && <img src={post?.url} alt="post-img" />}{" "}
+      <h4 className={styles.title}>{post?.title}</h4>
+      <p className={styles.content}> {post?.content}</p>
+      <p className={styles.timestamp}>{formatTimestamp(post?.createdAt)}</p>
+      <p className={styles.meta}>By:{post?.email}</p>
+      {email === post?.email && (
         <RiChatDeleteLine
           onClick={() => mutate(post?.name)}
           className={styles.deleteIcon}
         />
       )}
-      {email === post?.fields?.email?.stringValue && (
+      {email === post?.email && (
         <TiEdit
           onClick={() => setShowModal(true)}
           className={styles.editIcon}

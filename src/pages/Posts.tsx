@@ -1,7 +1,7 @@
 import React from "react";
 import PostList from "../features/posts/components/ViewPosts/PostList";
 
-const Posts = () => {
+const Posts: React.FC = () => {
   return (
     <div>
       <h1>Posts</h1>

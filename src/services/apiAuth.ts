@@ -1,6 +1,7 @@
+import { AuthResponse } from "../features/auth/authTypes";
 import { API_KEY } from "../firebase";
 
-export async function firebaseSignUp(email, password) {
+export async function firebaseSignUp(email: string, password: string) {
   const endpoint = `https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=${API_KEY}`;
 
   const payload = {
@@ -25,7 +26,7 @@ export async function firebaseSignUp(email, password) {
       throw new Error(responseData.error.message || "Failed to sign up");
     }
 
-    return responseData;
+    return responseData as AuthResponse;
   } catch (error) {
     // Here you could log the error or perform additional processing
     console.error("Error during Firebase sign-up:", error);
@@ -33,7 +34,7 @@ export async function firebaseSignUp(email, password) {
   }
 }
 
-export async function firebaseLogin(email, password) {
+export async function firebaseLogin(email: string, password: string) {
   const endpoint = `https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=${API_KEY}`;
 
   const payload = {
@@ -58,7 +59,7 @@ export async function firebaseLogin(email, password) {
       throw new Error(responseData.error.message || "Failed to log in");
     }
 
-    return responseData;
+    return responseData as AuthResponse;
   } catch (error) {
     console.error("Error during login:", error);
     throw error;

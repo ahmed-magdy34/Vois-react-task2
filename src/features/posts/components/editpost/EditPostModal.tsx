@@ -2,15 +2,25 @@ import React, { useEffect, useRef, useState } from "react";
 import styles from "./EditPostModal.module.css";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { updatePostSDK } from "../../../../services/apiPosts";
+import { Post } from "../../postTypes";
 
-const EditPostModal = ({ post, showModal, setShowModal }) => {
-  const dialogRef = useRef(null);
-  const [newTitle, setNewTitle] = useState(post?.fields?.title?.stringValue);
-  const [newContent, setNewContent] = useState(
-    post?.fields?.content?.stringValue
-  );
+interface EditPostModalProps {
+  post: Post;
+  showModal: boolean;
+  setShowModal: React.Dispatch<React.SetStateAction<boolean>>;
+}
 
-  const segments = post?.name.split("/");
+const EditPostModal: React.FC<EditPostModalProps> = ({
+  post,
+  showModal,
+  setShowModal,
+}) => {
+  const dialogRef = useRef<HTMLDialogElement>(null);
+  console.log("post", post);
+  const [newTitle, setNewTitle] = useState<string>(post?.title);
+  const [newContent, setNewContent] = useState<string>(post?.content);
+
+  const segments = post && post.name ? post.name.split("/") : [];
   const docId = segments[segments.length - 1];
 
   useEffect(() => {
@@ -25,7 +35,11 @@ const EditPostModal = ({ post, showModal, setShowModal }) => {
 
   const queryClient = useQueryClient();
 
-  const { mutate, isPending } = useMutation({
+  const { mutate, isPending } = useMutation<
+    boolean,
+    Error,
+    { title: string; content: string }
+  >({
     mutationFn: (updatedData) => updatePostSDK(docId, updatedData),
 
     onSuccess: () => {
@@ -42,7 +56,7 @@ const EditPostModal = ({ post, showModal, setShowModal }) => {
     setShowModal(false);
   };
 
-  const handleSubmit = (event) => {
+  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     if (!newTitle || !newContent) {
       setShowModal(false);
@@ -71,9 +85,9 @@ const EditPostModal = ({ post, showModal, setShowModal }) => {
           <input
             type="text"
             name="title"
-            maxLength="10"
+            maxLength={10}
             id="title"
-            defaultValue={post?.fields?.title?.stringValue}
+            defaultValue={post?.title}
             onChange={(e) => setNewTitle(e.target.value)}
           />
         </div>
@@ -83,8 +97,8 @@ const EditPostModal = ({ post, showModal, setShowModal }) => {
             type="text"
             name="content"
             id="content"
-            maxLength="50"
-            defaultValue={post?.fields?.content?.stringValue}
+            maxLength={50}
+            defaultValue={post?.content}
             onChange={(e) => setNewContent(e.target.value)}
           />
         </div>

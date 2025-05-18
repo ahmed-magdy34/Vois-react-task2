@@ -6,6 +6,18 @@ import styles from "./CreatePost.module.css";
 import { useNavigate } from "react-router-dom";
 import { RootState } from "../../../../store/store";
 
+/**
+ * CreatePost component allows users to create a new post.
+ * It includes a form with fields for title, content, and image URL.
+ * it uses the useMutation hook from react-query to handle the creation of the post.
+ * It also uses the useSelector hook from react-redux to get the current user's email and token.
+ * When the form is submitted, it validates the inputs and calls the createPostAPI function to create the post.
+ * After successful creation, it invalidates the posts query and navigates to the posts page.
+ * @component
+ * @returns {JSX.Element} - A form for creating a new post.
+ *
+ */
+
 interface CreatePostData {
   title: string;
   content: string;

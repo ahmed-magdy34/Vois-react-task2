@@ -1,5 +1,16 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
+/**
+ * Auth Slice
+ * redux slice for managing authentication
+ * This slice contains the state and reducers for authentication.
+ * It includes actions to set and clear authentication data.
+ * it also handles local storage for token and email.
+ * it is used in the authForm component to manage user authentication.
+ * it helps in managing protected routes and user sessions.
+ *
+ */
+
 // Define the shape of the authentication state.
 interface AuthState {
   token: string | null;

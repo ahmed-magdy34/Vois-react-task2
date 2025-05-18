@@ -7,6 +7,16 @@ import styles from "./PostList.module.css";
 import PostItem from "./PostItem";
 import { Post } from "../../postTypes";
 
+/**
+ * postList component
+ * uses the useQuery hook from react-query to fetch posts data.
+ * It uses the useDispatch hook from react-redux to update the posts in the Redux store.
+ * It handles loading, error, and empty states.
+ * It returns a list of PostItem components for each post.
+ * @component
+ * @returns {JSX.Element} - A list of posts.
+ */
+
 const PostList: React.FC = () => {
   const dispatch = useDispatch();
   const { data, isLoading, isSuccess, isError } = useQuery<Post[], Error>({

@@ -15,6 +15,31 @@ import EditPostModal from "../editpost/EditPostModal";
 import { Post } from "../../postTypes";
 import { RootState } from "../../../../store/store";
 
+/**postItem component
+ *
+ * * PostItem component displays a single post with its details.
+ * It allows the user to delete or edit the post if they are the author.
+ * It uses the useMutation hook from react-query to handle the deletion of the post.
+ * It also uses the useSelector hook from react-redux to get the current user's email and token.
+ * takes a post object as a prop and displays its title, content, timestamp, and author email.
+ * It also displays a delete icon and an edit icon if the current user is the author of the post.
+ * When the delete icon is clicked, it calls the deletePostAPI function to delete the post.
+ * When the edit icon is clicked, it opens a modal to edit the post.
+ * @component
+ * @param {Post} post - The post object to be displayed.
+ * @returns {JSX.Element} - A list item containing the post details and action icons.
+ * @example
+ * const post = {
+ *   id: 1,
+ *  title: "Post Title",
+ *
+ * content: "Post content goes here.",
+ *
+ * createdAt: "2023-10-01T12:00:00Z",
+ * email: "ahmed@example.com"
+ *   url: "https://example.com/image.jpg",
+ */
+
 interface PostItemProps {
   post: Post;
 }

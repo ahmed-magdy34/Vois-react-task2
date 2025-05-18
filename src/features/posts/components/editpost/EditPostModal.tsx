@@ -4,6 +4,20 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { updatePostSDK } from "../../../../services/apiPosts";
 import { Post } from "../../postTypes";
 
+/**
+ * * EditPostModal component allows the user to edit a post's title and content.
+ * * It uses the useMutation hook from react-query to handle the update of the post.
+ * * * It also uses the useRef hook to manage the dialog element.
+ * * When the modal is open, it displays a form with fields for title and content.
+ *  * * When the form is submitted, it validates the inputs and calls the updatePostSDK function to update the post.
+ * * After successful update, it invalidates the posts query and closes the modal.
+ * * @component
+ * * @param {Post} post - The post object to be edited.
+ * * @param {boolean} showModal - Flag to control the visibility of the modal.
+ * * @param {function} setShowModal - Function to set the visibility of the modal.
+ * * @returns {JSX.Element} - A modal dialog for editing a post.
+ */
+
 interface EditPostModalProps {
   post: Post;
   showModal: boolean;

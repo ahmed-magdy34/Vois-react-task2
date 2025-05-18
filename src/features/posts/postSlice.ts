@@ -1,6 +1,14 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import type { Post } from "./postTypes"; // Adjust the path if needed
 
+/**
+ * Posts Slice
+ * redux slice for managing posts
+ * This slice contains the state and reducers for posts.
+ * It includes actions to update, add, remove, and update posts.
+ *
+ */
+
 // Define the shape of our posts state.
 interface PostsState {
   posts: Post[];
